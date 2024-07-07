@@ -1,15 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fl_activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fl_activity_main"
     tools:context=".MainActivity">
-    <TextView
-        android:layout_width="500dp"
-        android:layout_height="500dp"
-        android:text="Main Fragment Activity"
-        />
 
-</FrameLayout>
+    <!-- Guideline to divide the screen -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
+    <!--Layout margin guidelines-->
+    <include layout="@layout/layout_guideline" />
+    <!--Background image-->
+    <include layout="@layout/login_background" />
+    <!--Left part content of login-->
+    <include layout="@layout/login_left_layout" />
+    <!-- Separator line -->
+    <View
+        android:id="@+id/separator"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_center"
+        app:layout_constraintStart_toEndOf="@+id/guideline_center"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_top" />
+    <!-- Right part (50% of the screen) -->
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@+id/guideline_center"
+        app:layout_constraintTop_toTopOf="@+id/guideline_top">
+
+        <TextView
+            android:id="@+id/rightPart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="Right Part"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
