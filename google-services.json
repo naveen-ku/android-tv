@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "243509294448",
+    "project_id": "stage-tv-90fc9",
+    "storage_bucket": "stage-tv-90fc9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243509294448:android:f47ded03f1da98cdb14bb5",
+        "android_client_info": {
+          "package_name": "com.example.stagetv"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyButZbtI31gg4v4_rwmnIWz_onAyVOH-xY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
