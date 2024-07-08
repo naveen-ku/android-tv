@@ -1,15 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?><!-- Right part (50% of the screen) -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
->
+    android:layout_gravity="center"
+    android:paddingLeft="32dp"
+    android:paddingTop="100dp">
+
     <TextView
-        android:id="@+id/rightPart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Send OTP"
+        android:id="@+id/tv_body_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="आप नए यूजर है?"
         android:textColor="@android:color/white"
-        android:textSize="24sp" />
-</FrameLayout>
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_mobile_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_body_1">
+
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/ccp_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:ccp_contentColor="@color/colorWhite"
+            app:layout_constraintEnd_toStartOf="@id/et_mobile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_body_1" />
+
+        <EditText
+            android:id="@+id/et_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="मोबाइल नंबर"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ccp_mobile"
+            app:layout_constraintTop_toBottomOf="@id/tv_body_1" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_rounded"
+        android:text="ओटीपी पायें"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_mobile_number" />
+</androidx.constraintlayout.widget.ConstraintLayout>

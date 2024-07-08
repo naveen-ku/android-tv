@@ -85,4 +85,6 @@ dependencies {
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
     implementation("com.google.firebase:firebase-auth")
+    // Country code picker
+    implementation("com.hbb20:ccp:2.7.1")
 }
