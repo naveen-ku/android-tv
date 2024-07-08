@@ -11,7 +11,7 @@
         android:id="@+id/tv_body_1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="आप नए यूजर है?"
+        android:text="आप नए यूजर है?\nअपना मोबाइल नंबर दर्ज करें\n\n"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"

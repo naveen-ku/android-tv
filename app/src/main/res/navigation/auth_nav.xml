@@ -9,7 +9,7 @@
         android:id="@+id/sendOtpFragment"
         android:name="com.example.stagetv.ui.auth.SendOtpFragment"
         android:label="fragment_send_otp"
-        tools:layout="@layout/fragment_verify_otp" >
+        tools:layout="@layout/fragment_send_otp" >
         <action
             android:id="@+id/action_sendOtpFragment_to_verifyOtpFragment"
             app:destination="@id/verifyOtpFragment" />
