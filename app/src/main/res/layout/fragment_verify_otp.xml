@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="100dp"
->
-    <TextView
-        android:id="@+id/rightPart"
+    android:layout_gravity="center_vertical"
+    android:paddingStart="32dp"
+    android:paddingTop="100dp">
+
+    <EditText
+        android:id="@+id/et_otp_code"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Verify OTP"
-        android:textColor="@android:color/white"
-        android:textSize="24sp" />
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:hint="ओटीपी डाले"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_rounded"
+        android:text="ओटीपी पायें"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_otp_code" />
+</androidx.constraintlayout.widget.ConstraintLayout>
