@@ -5,7 +5,7 @@
     android:id="@+id/fl_activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <!-- Guideline to divide the screen -->
     <androidx.constraintlayout.widget.Guideline
@@ -19,7 +19,9 @@
     <!--Background image-->
     <include layout="@layout/login_background" />
     <!--Left part content of login-->
-    <include layout="@layout/login_left_layout" />
+    <include
+        android:id="@+id/ll_login_left_layout"
+        layout="@layout/login_left_layout" />
     <!-- Separator line -->
     <View
         android:id="@+id/separator"
@@ -30,25 +32,18 @@
         app:layout_constraintEnd_toEndOf="@+id/guideline_center"
         app:layout_constraintStart_toEndOf="@+id/guideline_center"
         app:layout_constraintTop_toBottomOf="@+id/guideline_top" />
-    <!-- Right part (50% of the screen) -->
-    <FrameLayout
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
-        app:layout_constraintEnd_toStartOf="@id/guideline_right"
-        app:layout_constraintStart_toEndOf="@+id/guideline_center"
-        app:layout_constraintTop_toTopOf="@+id/guideline_top">
-
-        <TextView
-            android:id="@+id/rightPart"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            android:text="Right Part"
-            android:textColor="@android:color/white"
-            android:textSize="24sp" />
-    </FrameLayout>
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_bottom"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_right"
+        app:layout_constraintStart_toEndOf="@+id/separator"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_top"
+        app:navGraph="@navigation/auth_nav" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

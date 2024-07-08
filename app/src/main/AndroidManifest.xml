@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StageTv">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:icon="@drawable/baseline_account_circle_24"
             android:banner="@drawable/baseline_account_circle_24"

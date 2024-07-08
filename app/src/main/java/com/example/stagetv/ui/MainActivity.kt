@@ -1,14 +1,21 @@
-package com.example.stagetv
+package com.example.stagetv.ui
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
+import com.example.stagetv.R
+import com.example.stagetv.databinding.ActivityMainBinding
 
 class MainActivity : FragmentActivity() {
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        // View Binding
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
+        // Set login left banner
         val text = "क्या आप पहले से VIP मेंबर हैं ?\n" +
                 "TV पर रजिस्टर करें\n\n" +
                 "1. अपने फोन पर STAGE app खोले\n" +
@@ -18,5 +25,7 @@ class MainActivity : FragmentActivity() {
 
         val leftText = findViewById<TextView>(R.id.tv_left_banner_text)
         leftText.text = text
+
+        // Right pages
     }
 }
