@@ -1,5 +1,6 @@
 package com.example.stagetv.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.stagetv.data.network.Resource
 import com.example.stagetv.databinding.FragmentSendOtpBinding
+import com.example.stagetv.ui.HomeFragmentActivity
 import com.example.stagetv.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -47,7 +49,7 @@ class SendOtpFragment : Fragment() {
                 val cc = ccpMobile.selectedCountryCodeWithPlus
                 val number = etMobile.text.toString().trim()
                 val phoneNumber = "$cc$number"
-                Log.d("Ninja SendOtpFragment","send otp to: $phoneNumber")
+                Log.d("Ninja SendOtpFragment", "send otp to: $phoneNumber")
                 authViewModel.sendVerificationCode(phoneNumber, requireActivity())
             }
         }
@@ -56,6 +58,11 @@ class SendOtpFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 authViewModel.isVerificationInProgress.collect { resource ->
                     when (resource) {
+                        is Resource.AlreadySuccess -> {
+                            Log.d("Ninja sendOtpFragment", "already logged in")
+                            startActivity(Intent(context, HomeFragmentActivity::class.java))
+                        }
+
                         is Resource.Loading -> {
                             Log.d("Ninja SendOtpFragment", "Loading")
                             // Can show loader
@@ -65,7 +72,10 @@ class SendOtpFragment : Fragment() {
                             Log.d("Ninja SendOtpFragment", "Verification Success")
                             val verificationId = authViewModel.verificationId.value
                             if (verificationId != null) {
-                                Log.d("Ninja SendOtpFragment", "Verification ID is $verificationId.")
+                                Log.d(
+                                    "Ninja SendOtpFragment",
+                                    "Verification ID is $verificationId."
+                                )
                                 // Proceed to VerificationOtpFragment with the verification ID.
                                 val action =
                                     SendOtpFragmentDirections.actionSendOtpFragmentToVerifyOtpFragment(

@@ -1,17 +1,28 @@
 package com.example.stagetv.data.repository.auth
 
-import com.example.stagetv.data.network.auth.BaseAuthenticator
-import com.google.firebase.auth.FirebaseUser
+import com.example.stagetv.data.db.AppDatabase
+import com.example.stagetv.data.db.entity.User
+import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject
 
-class AuthRepository @Inject constructor(private val authenticator: BaseAuthenticator) :
-    BaseAuthRepository {
+class AuthRepository @Inject constructor(
+    private val firebaseAuth: FirebaseAuth,
+    private val appDatabase: AppDatabase
+) {
 
-    override fun signOut(): FirebaseUser? {
-        return authenticator.signOut()
+    suspend fun signOut() {
+        // delete the database user & sign out
+        firebaseAuth.signOut()
+        appDatabase.userDao().deleteUser()
     }
 
-    override fun getCurrentUser(): FirebaseUser? {
-        return authenticator.getUser()
+    // Create the database user
+    suspend fun signIn(user: User) {
+        appDatabase.userDao().upsertUser(user)
     }
+
+    suspend fun getSingleUser(): User? {
+        return appDatabase.userDao().getSingleUser()
+    }
+
 }

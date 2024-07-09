@@ -26,10 +26,6 @@ class VerifyOtpFragment : Fragment() {
     private lateinit var binding: FragmentVerifyOtpBinding
     private val authViewModel by viewModels<AuthViewModel>()
     private val args: VerifyOtpFragmentArgs by navArgs()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

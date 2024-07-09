@@ -4,7 +4,9 @@ import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.stagetv.data.db.entity.User
 import com.example.stagetv.data.network.Resource
+import com.example.stagetv.data.repository.auth.AuthRepository
 import com.example.stagetv.utils.OTPFieldsState
 import com.example.stagetv.utils.VerificationOTPValidation
 import com.example.stagetv.utils.validOTP
@@ -25,7 +27,9 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewModel() {
+class AuthViewModel @Inject constructor(
+    private val authRepository: AuthRepository, private val auth: FirebaseAuth
+) : ViewModel() {
 
     private val _verificationId = MutableStateFlow<String?>(null)
     val verificationId: StateFlow<String?>
@@ -39,8 +43,19 @@ class AuthViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewMo
     private val _validation = Channel<OTPFieldsState>()
     val validation = _validation.receiveAsFlow()
 
+    init {
+        viewModelScope.launch {
+//            authRepository.signOut()
+            val user: User? = authRepository.getSingleUser()
+            if (user != null && !user.uid.isNullOrBlank()) {
+                _isVerificationInProgress.emit(Resource.AlreadySuccess())
+            }
+        }
+
+    }
+
     fun sendVerificationCode(phoneNumber: String, activity: Activity) {
-        Log.d("Ninja AuthViewModel","sendVerificationCode: $phoneNumber $activity")
+        Log.d("Ninja AuthViewModel", "sendVerificationCode: $phoneNumber $activity")
 
         runBlocking {
             _isVerificationInProgress.emit(Resource.Loading())
@@ -62,7 +77,7 @@ class AuthViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewMo
                 _verificationId.value = verificationId
                 _isVerificationInProgress.value =
                     Resource.Success(true, "onCodeSent: $verificationId")
-                Log.d("Ninja", "onCodeSent(): $verificationId")
+                Log.d("Ninja onCodeSent", "onCodeSent(): $verificationId")
             }
         }
 
@@ -79,6 +94,9 @@ class AuthViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewMo
     private fun signInWithPhoneAuthCredential(
         credential: PhoneAuthCredential, codeSendVerification: String
     ) {
+        Log.d(
+            "Ninja signInWithPhoneAuthCredential", "codeSendVerification $codeSendVerification"
+        )
         if (checkValidation(codeSendVerification)) {
             runBlocking {
                 _isVerificationInProgress.emit(Resource.Loading())
@@ -86,14 +104,26 @@ class AuthViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewMo
             auth.signInWithCredential(credential).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d(
-                        "signInWithPhoneAuthCredential",
+                        "Ninja signInWithPhoneAuthCredential",
                         "signInWithCredential success: ${task.result} "
                     )
                     _isVerificationInProgress.value =
                         Resource.Success(false, "signInWithCredential success: ${task.result}")
+                    // Get current firebase user & then store it to db
+                    val user = User(
+                        uid = auth.currentUser!!.uid.toString(),
+                        phoneNumber = auth.currentUser!!.phoneNumber.toString()
+                    )
+                    viewModelScope.launch {
+                        authRepository.signIn(user)
+                    }
+                    Log.d(
+                        "Ninja signInWithPhoneAuthCredential",
+                        "currentUser ${auth.currentUser?.uid} ${auth.currentUser?.phoneNumber}"
+                    )
                 } else {
                     Log.d(
-                        "signInWithPhoneAuthCredential",
+                        "Ninja signInWithPhoneAuthCredential",
                         "signInWithCredential failure: ${task.exception} "
                     )
                     _isVerificationInProgress.value =
