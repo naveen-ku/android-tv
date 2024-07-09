@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import com.example.stagetv.R
-import com.example.stagetv.data.db.AppDatabase
 import com.example.stagetv.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragmentActivity : FragmentActivity() {
+class MainActivity : FragmentActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

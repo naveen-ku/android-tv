@@ -47,6 +47,7 @@ class AuthViewModel @Inject constructor(
         viewModelScope.launch {
 //            authRepository.signOut()
             val user: User? = authRepository.getSingleUser()
+            Log.d("Ninja ","user: $user")
             if (user != null && !user.uid.isNullOrBlank()) {
                 _isVerificationInProgress.emit(Resource.AlreadySuccess())
             }

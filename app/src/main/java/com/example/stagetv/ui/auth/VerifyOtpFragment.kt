@@ -15,7 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.example.stagetv.data.network.Resource
 import com.example.stagetv.databinding.FragmentVerifyOtpBinding
-import com.example.stagetv.ui.HomeFragmentActivity
+import com.example.stagetv.ui.HomeActivity
 import com.example.stagetv.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -56,7 +56,7 @@ class VerifyOtpFragment : Fragment() {
                             Log.d(
                                 "VerificationOtpFragment", "Verification success: ${resource.data}"
                             )
-                            startActivity(Intent(context, HomeFragmentActivity::class.java))
+                            startActivity(Intent(context, HomeActivity::class.java))
                         }
 
                         is Resource.Failure -> {

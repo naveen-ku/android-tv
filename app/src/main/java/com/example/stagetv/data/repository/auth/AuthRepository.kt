@@ -12,8 +12,8 @@ class AuthRepository @Inject constructor(
 
     suspend fun signOut() {
         // delete the database user & sign out
-        firebaseAuth.signOut()
         appDatabase.userDao().deleteUser()
+        firebaseAuth.signOut()
     }
 
     // Create the database user
