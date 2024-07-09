@@ -5,7 +5,9 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import com.example.stagetv.R
 import com.example.stagetv.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : FragmentActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.gms.google-services")
+    id("com.google.dagger.hilt.android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -38,6 +40,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
@@ -53,6 +58,9 @@ dependencies {
     kapt("androidx.room:room-compiler:$room_version")
     // Test helpers
     testImplementation("androidx.room:room-testing:$room_version")
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
     // Paging 3 Integration
     implementation("androidx.room:room-paging:$room_version")
     // Retrofit
