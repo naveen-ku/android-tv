@@ -59,8 +59,8 @@ dependencies {
     // Test helpers
     testImplementation("androidx.room:room-testing:$room_version")
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.49")
+    kapt("com.google.dagger:hilt-android-compiler:2.49")
     // Paging 3 Integration
     implementation("androidx.room:room-paging:$room_version")
     // Retrofit

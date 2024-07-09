@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             android:hint="मोबाइल नंबर"
             android:inputType="number"
+            android:imeOptions="actionNext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/ccp_mobile"
             app:layout_constraintTop_toBottomOf="@id/tv_body_1" />

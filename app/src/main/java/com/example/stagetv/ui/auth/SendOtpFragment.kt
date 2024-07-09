@@ -47,6 +47,7 @@ class SendOtpFragment : Fragment() {
                 val cc = ccpMobile.selectedCountryCodeWithPlus
                 val number = etMobile.text.toString().trim()
                 val phoneNumber = "$cc$number"
+                Log.d("Ninja SendOtpFragment","send otp to: $phoneNumber")
                 authViewModel.sendVerificationCode(phoneNumber, requireActivity())
             }
         }
@@ -56,14 +57,15 @@ class SendOtpFragment : Fragment() {
                 authViewModel.isVerificationInProgress.collect { resource ->
                     when (resource) {
                         is Resource.Loading -> {
+                            Log.d("Ninja SendOtpFragment", "Loading")
                             // Can show loader
                         }
 
                         is Resource.Success -> {
-                            Log.d("SendOtpFragment", "Verification initiated.")
+                            Log.d("Ninja SendOtpFragment", "Verification Success")
                             val verificationId = authViewModel.verificationId.value
                             if (verificationId != null) {
-                                Log.d("SendOtpFragment", "Verification ID is $verificationId.")
+                                Log.d("Ninja SendOtpFragment", "Verification ID is $verificationId.")
                                 // Proceed to VerificationOtpFragment with the verification ID.
                                 val action =
                                     SendOtpFragmentDirections.actionSendOtpFragmentToVerifyOtpFragment(
@@ -72,13 +74,13 @@ class SendOtpFragment : Fragment() {
                                 findNavController().navigate(action)
                             } else {
                                 // Handle error: Verification ID is null.
-                                Log.d("SendOtpFragment", "Verification ID is null.")
+                                Log.d("Ninja SendOtpFragment", "Verification ID is null.")
                             }
                         }
 
                         is Resource.Failure -> {
                             Log.d(
-                                "SendOtpFragment",
+                                "Ninja SendOtpFragment",
                                 "Verification initiation failed: ${resource.message}"
                             )
                             // Show an error message

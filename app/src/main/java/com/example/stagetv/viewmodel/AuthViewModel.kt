@@ -40,6 +40,8 @@ class AuthViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewMo
     val validation = _validation.receiveAsFlow()
 
     fun sendVerificationCode(phoneNumber: String, activity: Activity) {
+        Log.d("Ninja AuthViewModel","sendVerificationCode: $phoneNumber $activity")
+
         runBlocking {
             _isVerificationInProgress.emit(Resource.Loading())
         }
@@ -47,12 +49,10 @@ class AuthViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewMo
 
             override fun onVerificationCompleted(authCredential: PhoneAuthCredential) {
                 Log.d("Ninja", "onVerificationCompleted() $authCredential")
-                TODO("Not yet implemented")
             }
 
             override fun onVerificationFailed(exception: FirebaseException) {
                 Log.d("Ninja", "onVerificationFailed() $exception")
-                TODO("Not yet implemented")
             }
 
             override fun onCodeSent(

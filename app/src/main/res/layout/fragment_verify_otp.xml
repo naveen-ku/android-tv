@@ -23,7 +23,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/button_rounded"
-        android:text="ओटीपी पायें"
+        android:text="वेरीफाई करें"
         android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

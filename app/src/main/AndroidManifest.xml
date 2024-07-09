@@ -4,11 +4,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature
-        android:name="android.software.leanback"
-        android:required="true" />
-    <uses-feature
         android:name="android.hardware.touchscreen"
         android:required="false" />
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="true" />
 
     <application
         android:name=".ui.MainApplication"
@@ -18,11 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StageTv">
         <activity
-            android:name=".ui.HomeActivity"
-            android:exported="false"
-            android:label="@string/title_activity_home" />
-        <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.MainFragmentActivity"
             android:banner="@drawable/baseline_account_circle_24"
             android:exported="true"
             android:icon="@drawable/baseline_account_circle_24"
