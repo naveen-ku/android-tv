@@ -1,8 +1,10 @@
 package com.example.stagetv.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
+import com.example.stagetv.BuildConfig
 import com.example.stagetv.R
 import com.example.stagetv.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint

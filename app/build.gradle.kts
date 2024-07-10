@@ -17,9 +17,8 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
+        buildConfigField("String","TMDB_KEY_TOKEN", providers.gradleProperty("TMDB_KEY_TOKEN").get())
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -39,6 +38,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
     kapt {
         correctErrorTypes = true
