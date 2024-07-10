@@ -1,7 +1,9 @@
 package com.example.stagetv.di
 
 import com.example.stagetv.data.db.AppDatabase
+import com.example.stagetv.data.network.MovieService
 import com.example.stagetv.data.repository.auth.AuthRepository
+import com.example.stagetv.data.repository.movie.MovieRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -17,4 +19,8 @@ object RepositoryModule {
     @ActivityScoped
     fun provideAuthRepository(firebaseAuth: FirebaseAuth, appDatabase: AppDatabase) =
         AuthRepository(firebaseAuth, appDatabase)
+
+    @Provides
+    @ActivityScoped
+    fun provideMovieRepository(movieService: MovieService) = MovieRepository(movieService)
 }
