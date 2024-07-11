@@ -1,15 +1,14 @@
-package com.example.stagetv.data.db.entity.tvseries
+package com.example.stagetv.data.db.entity.movie
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "tv_series")
-data class TvSeries(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+@Entity(tableName = "movies_list")
+data class MoviesList(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val page: Int,
-    @SerializedName("results") val tvSeriesThumbnails: List<TvSeriesThumbnail>,
+    @SerializedName("results") val movieThumbnails: List<MovieThumbnail>,
     @SerializedName("total_pages") val totalPages: Int,
     @SerializedName("total_results") val totalResults: Int
 )

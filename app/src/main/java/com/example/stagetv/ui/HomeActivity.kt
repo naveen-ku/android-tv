@@ -25,6 +25,7 @@ class HomeActivity : FragmentActivity() {
 //        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         homeViewModel.getPopularMovies()
+        homeViewModel.getMoviesList()
 
     }
 }

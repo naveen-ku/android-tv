@@ -64,6 +64,7 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.49")
     // Paging 3 Integration
     implementation("androidx.room:room-paging:$room_version")
+    implementation("androidx.paging:paging-runtime:3.3.0")
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.google.code.gson:gson:2.11.0")

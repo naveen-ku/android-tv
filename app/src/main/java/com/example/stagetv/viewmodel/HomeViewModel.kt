@@ -3,6 +3,7 @@ package com.example.stagetv.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.example.stagetv.data.repository.movie.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -21,5 +22,9 @@ class HomeViewModel @Inject constructor(private val movieRepository: MovieReposi
                 Log.e("Ninja HomeViewModel", "error: ${e.message}")
             }
         }
+    }
+
+    fun getMoviesList(){
+        val list = movieRepository.getMoviesList().cachedIn(viewModelScope)
     }
 }
