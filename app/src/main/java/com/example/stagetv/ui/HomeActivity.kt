@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Observer
-import androidx.paging.PagingData
+import com.bumptech.glide.Glide
 import com.example.stagetv.R
 import com.example.stagetv.data.db.entity.ItemThumbnail
 import com.example.stagetv.databinding.ActivityHomeBinding
@@ -16,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeActivity : FragmentActivity() {
     private lateinit var binding: ActivityHomeBinding
     private val homeViewModel: HomeViewModel by viewModels<HomeViewModel>()
-    private lateinit var popularMoviesObserver: Observer<PagingData<ItemThumbnail>>
+//    private lateinit var popularMoviesObserver: Observer<PagingData<ItemThumbnail>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,23 +23,29 @@ class HomeActivity : FragmentActivity() {
         val view = binding.root
         setContentView(view)
 
-        homeViewModel.getTrendingMovies()
-//        homeViewModel.getMoviesList()
         val listFragment = ListFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.list_fragment, listFragment).commit()
 
-        homeViewModel.trendingMovieList.observe(this) {
-            if (it != null) {
-                Log.d("Ninja HomeActivity", "movieList: $it")
-                listFragment.bindMovieData("Popular Movies",it)
+        homeViewModel.getTrendingMovies()
+        homeViewModel.trendingMovieList.observe(this) { movieData ->
+            if (movieData != null) {
+                Log.d("Ninja HomeActivity", "movieList: $movieData")
+                listFragment.bindMovieData("Popular Movies", movieData)
+                listFragment.setOnContentSelectedListener {
+                    updateBanner(it)
+                }
             }
         }
 
         homeViewModel.getTrendingTvSeries()
-        homeViewModel.trendingTvSeriesList.observe(this){
-            if(it!= null){
-                listFragment.bindTVData("Popular TV Series",it)
+        homeViewModel.trendingTvSeriesList.observe(this) { tvSeriesData ->
+            if (tvSeriesData != null) {
+                Log.d("Ninja HomeActivity", "movieList: $tvSeriesData")
+                listFragment.bindTVData("Popular TV Series", tvSeriesData)
+                listFragment.setOnContentSelectedListener {
+                    updateBanner(it)
+                }
             }
         }
 
@@ -50,6 +55,18 @@ class HomeActivity : FragmentActivity() {
 //
 //        homeViewModel.getPopularMoviesList()
 //        homeViewModel.popularMoviesList.observe(this, popularMoviesObserver)
+
+    }
+
+    private fun updateBanner(itemThumbnail: ItemThumbnail) {
+
+
+        binding.tvTitle.text = itemThumbnail.title ?: itemThumbnail.name
+        binding.tvTagline.text = itemThumbnail.mediaType.uppercase()
+        binding.tvOverview.text = itemThumbnail.overview
+        val url = "https://image.tmdb.org/t/p/w500/" + itemThumbnail.backdropPath
+        Glide.with(this).load(url).into(binding.ivImage)
+
     }
 
     override fun onDestroy() {

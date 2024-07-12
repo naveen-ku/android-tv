@@ -2,10 +2,12 @@ package com.example.stagetv.ui
 
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.marginStart
 import androidx.leanback.widget.Presenter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -21,12 +23,12 @@ class ItemPresenter() : Presenter() {
         return ViewHolder(view)
     }
 
-    fun getWidthInPercent(context: Context, percent: Int): Int {
+    private fun getWidthInPercent(context: Context, percent: Int): Int {
         val width = context.resources.displayMetrics.widthPixels ?: 0
         return (width * percent) / 100
     }
 
-    fun getHeightInPercent(context: Context, percent: Int): Int {
+    private fun getHeightInPercent(context: Context, percent: Int): Int {
         val height = context.resources.displayMetrics.heightPixels ?: 0
         return (height * percent) / 100
     }

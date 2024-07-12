@@ -8,4 +8,9 @@ import com.google.gson.annotations.SerializedName
 data class ItemThumbnail(
     @PrimaryKey(autoGenerate = false) val id: Int,
     @SerializedName("poster_path") val posterPath: String,
+    @SerializedName("backdrop_path") val backdropPath:String,
+    @SerializedName("media_type") val mediaType: String,
+    val title:String?,
+    val name:String?,
+    val overview:String
 )

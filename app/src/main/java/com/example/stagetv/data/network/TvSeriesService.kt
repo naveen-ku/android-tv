@@ -3,6 +3,7 @@ package com.example.stagetv.data.network
 import com.example.stagetv.data.db.entity.tvseries.TvSeriesDetails
 import com.example.stagetv.data.db.entity.tvseries.TvSeriesList
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TvSeriesService {
@@ -15,6 +16,6 @@ interface TvSeriesService {
         @Query("language") language: String, @Query("page") page: Int
     ): TvSeriesList
 
-    @GET("tv")
-    suspend fun getTvSeriesDetail(@Query("series_id") seriesId: Int): TvSeriesDetails
+    @GET("tv/{seriesId}")
+    suspend fun getTvSeriesDetail(@Path("seriesId") seriesId: Int): TvSeriesDetails
 }

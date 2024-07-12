@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_margin="0dp"
     android:focusable="true"
+    android:clickable="true"
     android:layout_height="match_parent">
     <ImageView
         android:id="@+id/im_movie_thumbnail"

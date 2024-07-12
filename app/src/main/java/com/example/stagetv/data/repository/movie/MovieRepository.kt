@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.liveData
+import com.example.stagetv.data.db.entity.movie.MovieDetails
 import com.example.stagetv.data.db.entity.movie.MoviesList
+import com.example.stagetv.data.db.entity.tvseries.TvSeriesDetails
 import com.example.stagetv.data.db.entity.tvseries.TvSeriesList
 import com.example.stagetv.data.network.MovieService
 import com.example.stagetv.data.network.TvSeriesService
@@ -15,6 +17,18 @@ class MovieRepository @Inject constructor(
     private val movieService: MovieService,
     private val tvSeriesService: TvSeriesService
 ) {
+
+    suspend fun getMovieDetails(id:Int): MovieDetails {
+        val result = movieService.getMovieDetail(id)
+        Log.d("Ninja MovieRepository","getMovieDetails $result")
+        return result
+    }
+
+    suspend fun getTvSeriesDetails(id:Int): TvSeriesDetails {
+        val result = tvSeriesService.getTvSeriesDetail(id)
+        Log.d("Ninja MovieRepository","getTvSeriesDetails $result")
+        return result
+    }
 
     suspend fun getTrendingMovies(): MoviesList {
         val result = movieService.getTrendingMovies()
