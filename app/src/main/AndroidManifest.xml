@@ -17,6 +17,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.StageTv">
+        <activity
+            android:name=".ui.DetailActivity"
+            android:exported="false" />
         <activity android:name=".ui.HomeActivity" />
         <activity
             android:name=".ui.MainActivity"

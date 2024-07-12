@@ -1,5 +1,6 @@
 package com.example.stagetv.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -45,6 +46,11 @@ class HomeActivity : FragmentActivity() {
                 listFragment.bindTVData("Popular TV Series", tvSeriesData)
                 listFragment.setOnContentSelectedListener {
                     updateBanner(it)
+                }
+                listFragment.setOnItemClickListener {
+                    val intent = Intent(this, DetailActivity::class.java)
+                    intent.putExtra("id", it.id)
+                    startActivity(intent)
                 }
             }
         }

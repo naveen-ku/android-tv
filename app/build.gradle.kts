@@ -46,6 +46,9 @@ android {
 }
 
 dependencies {
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     val room_version = "2.6.1"
     val lifecycle_version = "2.8.3"
     val nav_version = "2.7.7"
