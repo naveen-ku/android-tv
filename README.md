@@ -7,6 +7,12 @@ Stage project to build android TV app using Kotlin with features:
 
 
 ### Video Demo 
+
+
+https://github.com/user-attachments/assets/b7e159f4-c936-41b4-8593-9c7ec21efc8e
+
+
+
  [Drive Link](https://drive.google.com/file/d/1J2wgWDy0EPsUtkqHeQ4jKw8QwtMU8Q9L/view?usp=drive_link)
 
 ### Steps to run
@@ -19,6 +25,7 @@ Stage project to build android TV app using Kotlin with features:
 - [x] Fetch TV/Movie using API
 - [x] Play Video
 - [x] Follow MVVM architecture
+
 
 ### API Endpoints
 - Popular TV Series List: https://api.themoviedb.org/3/tv/popular?language=en-US&page=1 (language, page number) -> 20 series per page
