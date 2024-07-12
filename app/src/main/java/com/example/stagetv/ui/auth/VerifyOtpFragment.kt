@@ -57,6 +57,7 @@ class VerifyOtpFragment : Fragment() {
                                 "VerificationOtpFragment", "Verification success: ${resource.data}"
                             )
                             startActivity(Intent(context, HomeActivity::class.java))
+                            requireActivity().finish()
                         }
 
                         is Resource.Failure -> {

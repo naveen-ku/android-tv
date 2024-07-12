@@ -61,6 +61,7 @@ class SendOtpFragment : Fragment() {
                         is Resource.AlreadySuccess -> {
                             Log.d("Ninja sendOtpFragment", "already logged in")
                             startActivity(Intent(context, HomeActivity::class.java))
+                            requireActivity().finish()
                         }
 
                         is Resource.Loading -> {
