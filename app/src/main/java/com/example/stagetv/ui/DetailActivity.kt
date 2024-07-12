@@ -1,11 +1,14 @@
 package com.example.stagetv.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.stagetv.databinding.ActivityDetailBinding
+import com.example.stagetv.ui.player.PlaybackActivity
 import com.example.stagetv.viewmodel.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -32,12 +35,6 @@ class DetailActivity : FragmentActivity() {
         val view = binding.root
         setContentView(view)
 
-        val id = intent.getIntExtra("id", 0)
-        val mediaType = intent.getStringExtra("mediaType")
-
-//        val factory = DetailVIewModelFactory(movieRepository,)
-//        detailViewModel = ViewModelProvider(this, factory).get(DetailViewModel::class.java)
-
         detailViewModel.movieDetails.observe(this) { movieDetails ->
             if (movieDetails != null) {
                 binding.tvDetailTitle.text = movieDetails.title
@@ -47,7 +44,6 @@ class DetailActivity : FragmentActivity() {
                 Glide.with(this).load(url).fitCenter()
                     .diskCacheStrategy(DiskCacheStrategy.DATA).into(binding.ivDetailImage)
             }
-
         }
 
         detailViewModel.tvSeriesDetails.observe(this) { tvSeriesDetails ->
@@ -60,7 +56,12 @@ class DetailActivity : FragmentActivity() {
                     .diskCacheStrategy(DiskCacheStrategy.DATA)
                     .into(binding.ivDetailImage)
             }
+        }
 
+        binding.tvDetailPlay.setOnClickListener {
+            Log.d("Ninja", "play button clicked")
+            val intent = Intent(this, PlaybackActivity::class.java)
+            startActivity(intent)
         }
     }
 }

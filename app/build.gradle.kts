@@ -17,7 +17,11 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String","TMDB_KEY_TOKEN", providers.gradleProperty("TMDB_KEY_TOKEN").get())
+        buildConfigField(
+            "String",
+            "TMDB_KEY_TOKEN",
+            providers.gradleProperty("TMDB_KEY_TOKEN").get()
+        )
     }
     buildTypes {
         release {
@@ -102,4 +106,9 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     // Country code picker
     implementation("com.hbb20:ccp:2.7.1")
+    // exoplayer
+    val mediaVersion = "1.3.1"
+    implementation("androidx.media3:media3-exoplayer:$mediaVersion")
+    implementation("androidx.media3:media3-ui:$mediaVersion")
+    implementation("androidx.media3:media3-exoplayer-dash:$mediaVersion")
 }

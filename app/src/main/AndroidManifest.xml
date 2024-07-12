@@ -20,6 +20,9 @@
         <activity
             android:name=".ui.DetailActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.player.PlaybackActivity"
+            android:exported="false" />
         <activity android:name=".ui.HomeActivity" />
         <activity
             android:name=".ui.MainActivity"
