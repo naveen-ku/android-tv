@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface TvSeriesService {
 
     @GET("trending/tv/day?language=en-US/")
-    suspend fun getTrendingMovies(): TvSeriesList
+    suspend fun getTrendingTvSeries(): TvSeriesList
 
     @GET("tv/popular")
     suspend fun getTvSeriesList(

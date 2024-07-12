@@ -12,8 +12,8 @@ import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 import com.example.stagetv.R
-import com.example.stagetv.data.db.entity.movie.MovieThumbnail
 import com.example.stagetv.data.db.entity.movie.MoviesList
+import com.example.stagetv.data.db.entity.tvseries.TvSeriesList
 
 class ListFragment : RowsSupportFragment() {
 
@@ -25,15 +25,23 @@ class ListFragment : RowsSupportFragment() {
         adapter = rootAdapter
     }
 
-    fun bindData (movieList: MoviesList){
+    fun bindMovieData (header: String,movieList: MoviesList){
         val arrayObjectAdapter = ArrayObjectAdapter(ItemPresenter())
         movieList.movieThumbnails.forEach{ movieThumbnail ->
             arrayObjectAdapter.add(movieThumbnail)
         }
-        val headerItem = HeaderItem("Popular Movies")
+        val headerItem = HeaderItem(header)
         val listRow = ListRow(headerItem, arrayObjectAdapter)
         rootAdapter.add(listRow)
-        // Adapter implementation
+    }
+    fun bindTVData (header: String,tvSeriesList: TvSeriesList){
+        val arrayObjectAdapter = ArrayObjectAdapter(ItemPresenter())
+        tvSeriesList.tvSeriesThumbnails.forEach{ tvSeriesThumbnail ->
+            arrayObjectAdapter.add(tvSeriesThumbnail)
+        }
+        val headerItem = HeaderItem(header)
+        val listRow = ListRow(headerItem, arrayObjectAdapter)
+        rootAdapter.add(listRow)
     }
 
 }

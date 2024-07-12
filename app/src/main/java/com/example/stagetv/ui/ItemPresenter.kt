@@ -10,9 +10,9 @@ import androidx.leanback.widget.Presenter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.stagetv.R
-import com.example.stagetv.data.db.entity.movie.MovieThumbnail
+import com.example.stagetv.data.db.entity.ItemThumbnail
 
-class ItemPresenter : Presenter() {
+class ItemPresenter() : Presenter() {
     override fun onCreateViewHolder(parent: ViewGroup?): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_view, parent, false)
         val params = view.layoutParams
@@ -32,7 +32,7 @@ class ItemPresenter : Presenter() {
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder?, item: Any?) {
-        val content = item as? MovieThumbnail
+        val content = item as? ItemThumbnail
         val rootView = viewHolder?.view
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             rootView?.focusable = View.FOCUSABLE

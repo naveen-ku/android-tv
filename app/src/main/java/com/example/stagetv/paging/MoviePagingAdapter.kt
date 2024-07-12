@@ -5,25 +5,25 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.stagetv.data.db.entity.movie.MovieThumbnail
+import com.example.stagetv.data.db.entity.ItemThumbnail
 
 class MoviePagingAdapter :
-    PagingDataAdapter<MovieThumbnail, MoviePagingAdapter.MovieViewHolder>(COMPARATOR) {
+    PagingDataAdapter<ItemThumbnail, MoviePagingAdapter.MovieViewHolder>(COMPARATOR) {
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // Assign values by finding view id
 
     }
 
     companion object {
-        private val COMPARATOR = object : DiffUtil.ItemCallback<MovieThumbnail>() {
+        private val COMPARATOR = object : DiffUtil.ItemCallback<ItemThumbnail>() {
             override fun areItemsTheSame(
-                oldItem: MovieThumbnail, newItem: MovieThumbnail
+                oldItem: ItemThumbnail, newItem: ItemThumbnail
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
-                oldItem: MovieThumbnail, newItem: MovieThumbnail
+                oldItem: ItemThumbnail, newItem: ItemThumbnail
             ): Boolean {
                 return oldItem == newItem
             }

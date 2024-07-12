@@ -26,10 +26,17 @@ class HomeActivity : FragmentActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.list_fragment, listFragment).commit()
 
-        homeViewModel.movieList.observe(this) {
+        homeViewModel.trendingMovieList.observe(this) {
             if (it != null) {
                 Log.d("Ninja HomeActivity", "movieList: $it")
-                listFragment?.bindData(it)
+                listFragment.bindMovieData("Popular Movies",it)
+            }
+        }
+
+        homeViewModel.getTrendingTvSeries()
+        homeViewModel.trendingTvSeriesList.observe(this){
+            if(it!= null){
+                listFragment.bindTVData("Popular TV Series",it)
             }
         }
 
