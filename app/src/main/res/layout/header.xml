@@ -11,38 +11,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@drawable/ic_home"
-            android:textColor="@color/colorWhite"
             android:focusable="true"
-            />
+            android:textColor="@color/colorWhite" />
+
         <TextView
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@drawable/ic_language"
-            android:textColor="@color/colorWhite"
             android:focusable="true"
-            />
+            android:textColor="@color/colorWhite" />
+
         <TextView
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@drawable/ic_search"
-            android:textColor="@color/colorWhite"
             android:focusable="true"
-            />
+            android:textColor="@color/colorWhite" />
+
         <TextView
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@drawable/ic_settings"
-            android:textColor="@color/colorWhite"
             android:focusable="true"
-            />
+            android:textColor="@color/colorWhite" />
 
     </LinearLayout>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

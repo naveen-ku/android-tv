@@ -108,19 +108,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_selector"
-        android:drawableLeft="@drawable/ic_play"
         android:drawablePadding="8dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:focusedByDefault="true"
         android:padding="8dp"
-        android:text="Play"
+        android:text="@string/play"
         android:textColor="#fff"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/guideline_start"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_overview"
         app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent=".3" />
+        app:layout_constraintWidth_percent=".3"
+        app:drawableLeftCompat="@drawable/ic_play" />
 
 
     <androidx.fragment.app.FragmentContainerView

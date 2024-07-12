@@ -19,4 +19,10 @@
     <!-- Error messages -->
     <string name="error_fragment_message">An error occurred</string>
     <string name="dismiss_error">Dismiss</string>
+    <string name="play">Play</string>
+    <string name="new_user_heading">आप नए यूजर है?\nअपना मोबाइल नंबर दर्ज करें\n\n</string>
+    <string name="enter_phone">मोबाइल नंबर</string>
+    <string name="get_otp">ओटीपी पायें</string>
+    <string name="enter_otp">ओटीपी डाले</string>
+    <string name="verify">वेरीफाई करें</string>
 </resources>

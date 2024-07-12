@@ -35,5 +35,4 @@ class PlaybackActivity : FragmentActivity() {
         player.release()
     }
 
-
 }
