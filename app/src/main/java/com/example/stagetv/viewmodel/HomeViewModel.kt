@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import com.example.stagetv.data.db.entity.ItemThumbnail
 import com.example.stagetv.data.db.entity.movie.MoviesList
 import com.example.stagetv.data.db.entity.tvseries.TvSeriesList
 import com.example.stagetv.data.repository.movie.MovieRepository
@@ -26,6 +28,9 @@ class HomeViewModel @Inject constructor(private val movieRepository: MovieReposi
     val trendingTvSeriesList: LiveData<TvSeriesList>
         get() = _trendingTvSeriesList
 
+    private val _popularMoviesList = MutableLiveData<PagingData<ItemThumbnail>>(null)
+    val popularMoviesList: LiveData<PagingData<ItemThumbnail>>
+        get() = _popularMoviesList
 
 
     fun getTrendingMovies() {
@@ -55,6 +60,12 @@ class HomeViewModel @Inject constructor(private val movieRepository: MovieReposi
             } catch (e: Exception) {
                 Log.e("Ninja HomeViewModel", "error: ${e.message}")
             }
+        }
+    }
+
+    fun getPopularMoviesList(){
+        movieRepository.getPopularMoviesList().observeForever{pagingData ->
+            _popularMoviesList.postValue(pagingData)
         }
     }
 

@@ -28,7 +28,7 @@ class MovieRepository @Inject constructor(
         return result;
     }
 
-    fun getMoviesList() = Pager(
+    fun getPopularMoviesList() = Pager(
         config = PagingConfig(pageSize = 20, maxSize = 80),
         pagingSourceFactory = { MoviePagingSource(movieService) }).liveData
 }

@@ -1,17 +1,13 @@
 package com.example.stagetv.ui
 
-import android.content.ClipData.Item
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.leanback.app.RowsSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.FocusHighlight
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
-import com.example.stagetv.R
 import com.example.stagetv.data.db.entity.movie.MoviesList
 import com.example.stagetv.data.db.entity.tvseries.TvSeriesList
 
@@ -43,5 +39,14 @@ class ListFragment : RowsSupportFragment() {
         val listRow = ListRow(headerItem, arrayObjectAdapter)
         rootAdapter.add(listRow)
     }
+
+//    fun bindPagingData(header: String, pagingData: PagingData<ItemThumbnail>){
+//        lifecycleScope.launch {
+//            pagingData.collectLatest { data ->
+//                val arrayObjectAdapter = ArrayObjectAdapter(ItemPresenter())
+//                data.forEach{ item }
+//            }
+//        }
+//    }
 
 }
