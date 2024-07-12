@@ -1,6 +1,7 @@
 package com.example.stagetv.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
 import com.example.stagetv.R
@@ -18,13 +19,20 @@ class HomeActivity : FragmentActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-//        homeViewModel =   ViewModelProvider(this)[HomeViewModel::class.java]
 
-//        homeViewModel.getPopularMovies()
+        homeViewModel.getTrendingMovies()
 //        homeViewModel.getMoviesList()
         val listFragment = ListFragment()
         supportFragmentManager.beginTransaction()
-            .add(R.id.list_fragment, listFragment).commit()
+            .replace(R.id.list_fragment, listFragment).commit()
+
+        homeViewModel.movieList.observe(this) {
+            if (it != null) {
+                Log.d("Ninja HomeActivity", "movieList: $it")
+                listFragment?.bindData(it)
+            }
+        }
+
 
     }
 }
