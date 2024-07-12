@@ -1,8 +1,24 @@
 # android-tv
 
-### Steps to run
-- Request for gradle.properties file (Stores the TMDB API KEY)
+Stage project to build android TV app using Kotlin with features:
+- Login
+- Show TV/Movie series
+- Play video
 
+
+### Video Demo 
+ [Drive Link](https://drive.google.com/file/d/1J2wgWDy0EPsUtkqHeQ4jKw8QwtMU8Q9L/view?usp=drive_link)
+
+### Steps to run
+- Download Android Studio
+- Download SDK/NDK tools
+- Request for gradle.properties file (Stores the TMDB API KEY) to run app directly or simply create API on [TMBD](https://www.themoviedb.org/)
+
+### Tasks Achieved
+- [x] Login
+- [x] Fetch TV/Movie using API
+- [x] Play Video
+- [x] Follow MVVM architecture
 
 ### API Endpoints
 - Popular TV Series List: https://api.themoviedb.org/3/tv/popular?language=en-US&page=1 (language, page number) -> 20 series per page
