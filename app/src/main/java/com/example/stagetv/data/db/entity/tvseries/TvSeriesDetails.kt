@@ -21,6 +21,7 @@ data class TvSeriesDetails(
     @SerializedName("original_name") val originalName: String,
     val overview: String,
     @SerializedName("poster_path") val posterPath: String,
+    @SerializedName("backdrop_path") val backdropPath: String,
     @SerializedName("spoken_languages") val spokenLanguages: List<SpokenLanguage>,
     val status: String,
     val tagline: String?,

@@ -36,6 +36,12 @@ class HomeActivity : FragmentActivity() {
                 listFragment.setOnContentSelectedListener {
                     updateBanner(it)
                 }
+                listFragment.setOnItemClickListener {
+                    val intent = Intent(this, DetailActivity::class.java)
+                    intent.putExtra("id", it.id)
+                    intent.putExtra("mediaType",it.mediaType)
+                    startActivity(intent)
+                }
             }
         }
 
@@ -50,6 +56,7 @@ class HomeActivity : FragmentActivity() {
                 listFragment.setOnItemClickListener {
                     val intent = Intent(this, DetailActivity::class.java)
                     intent.putExtra("id", it.id)
+                    intent.putExtra("mediaType",it.mediaType)
                     startActivity(intent)
                 }
             }
