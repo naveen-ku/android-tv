@@ -111,4 +111,6 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer:$mediaVersion")
     implementation("androidx.media3:media3-ui:$mediaVersion")
     implementation("androidx.media3:media3-exoplayer-dash:$mediaVersion")
+    // UI testing with Espresso
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.6.1")
 }

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.liveData
+import com.example.stagetv.data.db.AppDatabase
 import com.example.stagetv.data.db.entity.movie.MovieDetails
 import com.example.stagetv.data.db.entity.movie.MoviesList
 import com.example.stagetv.data.db.entity.tvseries.TvSeriesDetails
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 class MovieRepository @Inject constructor(
     private val movieService: MovieService,
-    private val tvSeriesService: TvSeriesService
+    private val tvSeriesService: TvSeriesService,
+    private val appDatabase: AppDatabase
 ) {
 
     suspend fun getMovieDetails(id:Int): MovieDetails {
@@ -45,4 +47,8 @@ class MovieRepository @Inject constructor(
     fun getPopularMoviesList() = Pager(
         config = PagingConfig(pageSize = 20, maxSize = 80),
         pagingSourceFactory = { MoviePagingSource(movieService) }).liveData
+
+    suspend fun insertMovieDetailsToDb(movieDetails: MovieDetails){
+        appDatabase.movieDetailDao().insertMovieDetails(movieDetails)
+    }
 }

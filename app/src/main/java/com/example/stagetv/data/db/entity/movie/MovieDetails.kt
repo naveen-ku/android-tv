@@ -2,6 +2,7 @@ package com.example.stagetv.data.db.entity.movie
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 import com.example.stagetv.data.db.entity.Genre
 import com.example.stagetv.data.db.entity.SpokenLanguage
 import com.google.gson.annotations.SerializedName
@@ -11,7 +12,6 @@ data class MovieDetails(
     @PrimaryKey(autoGenerate = false) val id: Int,
     @SerializedName("backdrop_path") val backdropPath: String,
     val genres: List<Genre>,
-    val homepage: String,
     @SerializedName("imdb_id") val imdbId: String,
     @SerializedName("original_language") val originalLanguage: String,
     @SerializedName("original_title") val originalTitle: String,

@@ -4,6 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+// Combined the movie item thumbnail and tv series thumbnail item
+// movie item -> title
+// tv series item -> name
 @Entity(tableName = "item_thumbnails")
 data class ItemThumbnail(
     @PrimaryKey(autoGenerate = false) val id: Int,

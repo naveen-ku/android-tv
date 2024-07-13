@@ -23,6 +23,10 @@ object RepositoryModule {
 
     @Provides
     @ActivityScoped
-    fun provideMovieRepository(movieService: MovieService, tvSeriesService: TvSeriesService) =
-        MovieRepository(movieService, tvSeriesService)
+    fun provideMovieRepository(
+        movieService: MovieService,
+        tvSeriesService: TvSeriesService,
+        appDatabase: AppDatabase
+    ) =
+        MovieRepository(movieService, tvSeriesService, appDatabase)
 }

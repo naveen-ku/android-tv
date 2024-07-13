@@ -13,6 +13,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 
@@ -55,7 +56,9 @@ class DetailViewModel @AssistedInject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (mediaType == "movie") {
-                    val result = movieRepository.getMovieDetails(id)
+                    val deferredResult = async { movieRepository.getMovieDetails(id) }
+                    val result = deferredResult.await()
+                    movieRepository.insertMovieDetailsToDb(result)
                     _movieDetails.postValue(result)
                 } else {
                     val result = movieRepository.getTvSeriesDetails(id)
@@ -66,4 +69,5 @@ class DetailViewModel @AssistedInject constructor(
             }
         }
     }
+
 }
