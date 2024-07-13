@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.stagetv.data.db.entity.User
-import com.example.stagetv.data.network.Resource
+import com.example.stagetv.data.network.NetworkResult
 import com.example.stagetv.data.repository.auth.AuthRepository
 import com.example.stagetv.utils.OTPFieldsState
 import com.example.stagetv.utils.VerificationOTPValidation
@@ -36,8 +36,8 @@ class AuthViewModel @Inject constructor(
         get() = _verificationId
 
     private val _isVerificationInProgress =
-        MutableStateFlow<Resource<Boolean>>(Resource.Unspecified())
-    val isVerificationInProgress: Flow<Resource<Boolean>>
+        MutableStateFlow<NetworkResult<Boolean>>(NetworkResult.Unspecified())
+    val isVerificationInProgress: Flow<NetworkResult<Boolean>>
         get() = _isVerificationInProgress
 
     private val _validation = Channel<OTPFieldsState>()
@@ -49,7 +49,7 @@ class AuthViewModel @Inject constructor(
             val user: User? = authRepository.getSingleUser()
             Log.d("Ninja ","user: $user")
             if (user != null && !user.uid.isNullOrBlank()) {
-                _isVerificationInProgress.emit(Resource.AlreadySuccess())
+                _isVerificationInProgress.emit(NetworkResult.AlreadySuccess())
             }
         }
 
@@ -59,7 +59,7 @@ class AuthViewModel @Inject constructor(
         Log.d("Ninja AuthViewModel", "sendVerificationCode: $phoneNumber $activity")
 
         runBlocking {
-            _isVerificationInProgress.emit(Resource.Loading())
+            _isVerificationInProgress.emit(NetworkResult.Loading())
         }
         val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -77,7 +77,7 @@ class AuthViewModel @Inject constructor(
                 super.onCodeSent(verificationId, token)
                 _verificationId.value = verificationId
                 _isVerificationInProgress.value =
-                    Resource.Success(true, "onCodeSent: $verificationId")
+                    NetworkResult.Success(true, "onCodeSent: $verificationId")
                 Log.d("Ninja onCodeSent", "onCodeSent(): $verificationId")
             }
         }
@@ -100,7 +100,7 @@ class AuthViewModel @Inject constructor(
         )
         if (checkValidation(codeSendVerification)) {
             runBlocking {
-                _isVerificationInProgress.emit(Resource.Loading())
+                _isVerificationInProgress.emit(NetworkResult.Loading())
             }
             auth.signInWithCredential(credential).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -109,7 +109,7 @@ class AuthViewModel @Inject constructor(
                         "signInWithCredential success: ${task.result} "
                     )
                     _isVerificationInProgress.value =
-                        Resource.Success(false, "signInWithCredential success: ${task.result}")
+                        NetworkResult.Success(false, "signInWithCredential success: ${task.result}")
                     // Get current firebase user & then store it to db
                     val user = User(
                         uid = auth.currentUser!!.uid.toString(),
@@ -128,7 +128,7 @@ class AuthViewModel @Inject constructor(
                         "signInWithCredential failure: ${task.exception} "
                     )
                     _isVerificationInProgress.value =
-                        Resource.Failure(false, "signInWithCredential failure: ${task.exception}")
+                        NetworkResult.Failure(false, "signInWithCredential failure: ${task.exception}")
 
                 }
             }

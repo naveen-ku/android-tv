@@ -13,7 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.stagetv.data.network.Resource
+import com.example.stagetv.data.network.NetworkResult
 import com.example.stagetv.databinding.FragmentSendOtpBinding
 import com.example.stagetv.ui.HomeActivity
 import com.example.stagetv.viewmodel.AuthViewModel
@@ -58,18 +58,18 @@ class SendOtpFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 authViewModel.isVerificationInProgress.collect { resource ->
                     when (resource) {
-                        is Resource.AlreadySuccess -> {
+                        is NetworkResult.AlreadySuccess -> {
                             Log.d("Ninja sendOtpFragment", "already logged in")
                             startActivity(Intent(context, HomeActivity::class.java))
                             requireActivity().finish()
                         }
 
-                        is Resource.Loading -> {
+                        is NetworkResult.Loading -> {
                             Log.d("Ninja SendOtpFragment", "Loading")
                             // Can show loader
                         }
 
-                        is Resource.Success -> {
+                        is NetworkResult.Success -> {
                             Log.d("Ninja SendOtpFragment", "Verification Success")
                             val verificationId = authViewModel.verificationId.value
                             if (verificationId != null) {
@@ -89,7 +89,7 @@ class SendOtpFragment : Fragment() {
                             }
                         }
 
-                        is Resource.Failure -> {
+                        is NetworkResult.Failure -> {
                             Log.d(
                                 "Ninja SendOtpFragment",
                                 "Verification initiation failed: ${resource.message}"

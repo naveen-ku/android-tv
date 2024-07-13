@@ -13,7 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
-import com.example.stagetv.data.network.Resource
+import com.example.stagetv.data.network.NetworkResult
 import com.example.stagetv.databinding.FragmentVerifyOtpBinding
 import com.example.stagetv.ui.HomeActivity
 import com.example.stagetv.viewmodel.AuthViewModel
@@ -48,11 +48,11 @@ class VerifyOtpFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 authViewModel.isVerificationInProgress.collect { resource ->
                     when (resource) {
-                        is Resource.Loading -> {
+                        is NetworkResult.Loading -> {
                             // Can show loader
                         }
 
-                        is Resource.Success -> {
+                        is NetworkResult.Success -> {
                             Log.d(
                                 "VerificationOtpFragment", "Verification success: ${resource.data}"
                             )
@@ -60,7 +60,7 @@ class VerifyOtpFragment : Fragment() {
                             requireActivity().finish()
                         }
 
-                        is Resource.Failure -> {
+                        is NetworkResult.Failure -> {
                             Log.d(
                                 "VerificationOtpFragment",
                                 "Verification failed: ${resource.message}"
