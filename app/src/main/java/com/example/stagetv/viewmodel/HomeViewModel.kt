@@ -7,11 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.example.stagetv.data.db.entity.ItemThumbnail
-import com.example.stagetv.data.db.entity.movie.MovieDetails
 import com.example.stagetv.data.db.entity.movie.MoviesList
-import com.example.stagetv.data.db.entity.tvseries.TvSeriesDetails
 import com.example.stagetv.data.db.entity.tvseries.TvSeriesList
 import com.example.stagetv.data.repository.movie.MovieRepository
+import com.example.stagetv.data.repository.tvseries.TvSeriesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -19,7 +18,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val movieRepository: MovieRepository) :
+class HomeViewModel @Inject constructor(
+    private val movieRepository: MovieRepository,
+    private val tvSeriesRepository: TvSeriesRepository
+) :
     ViewModel() {
 
     private val _trendingMovieList = MutableLiveData<MoviesList>(null)
@@ -53,7 +55,7 @@ class HomeViewModel @Inject constructor(private val movieRepository: MovieReposi
         viewModelScope.launch {
             try {
                 val deferredResponse = async(Dispatchers.IO) {
-                    movieRepository.getTrendingTvSeries()
+                    tvSeriesRepository.getTrendingTvSeries()
                 }
                 val response = deferredResponse.await()
                 _trendingTvSeriesList.postValue(response)

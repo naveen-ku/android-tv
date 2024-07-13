@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.stagetv.data.db.entity.movie.MovieDetails
 import com.example.stagetv.data.db.entity.tvseries.TvSeriesDetails
 import com.example.stagetv.data.repository.movie.MovieRepository
+import com.example.stagetv.data.repository.tvseries.TvSeriesRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 
 class DetailViewModel @AssistedInject constructor(
     private val movieRepository: MovieRepository,
+    private val tvSeriesRepository: TvSeriesRepository,
     @Assisted private val id: Int,
     @Assisted private val mediaType: String
 ) : ViewModel() {
@@ -61,7 +63,7 @@ class DetailViewModel @AssistedInject constructor(
                     movieRepository.insertMovieDetailsToDb(result)
                     _movieDetails.postValue(result)
                 } else {
-                    val result = movieRepository.getTvSeriesDetails(id)
+                    val result = tvSeriesRepository.getTvSeriesDetails(id)
                     _tvSeriesDetails.postValue(result)
                 }
             } catch (e: Exception) {
