@@ -2,7 +2,6 @@ package com.example.stagetv.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
@@ -32,15 +31,14 @@ class HomeActivity : FragmentActivity() {
         homeViewModel.getTrendingMovies()
         homeViewModel.trendingMovieList.observe(this) { movieData ->
             if (movieData != null) {
-                Log.d("Ninja HomeActivity", "movieList: $movieData")
-                listFragment.bindMovieData("Popular Movies", movieData)
+                listFragment.bindMovieData("Trending Movies", movieData)
                 listFragment.setOnContentSelectedListener {
                     updateBanner(it)
                 }
                 listFragment.setOnItemClickListener {
                     val intent = Intent(this, DetailActivity::class.java)
                     intent.putExtra("id", it.id)
-                    intent.putExtra("mediaType",it.mediaType)
+                    intent.putExtra("mediaType", it.mediaType)
                     startActivity(intent)
                 }
             }
@@ -49,15 +47,14 @@ class HomeActivity : FragmentActivity() {
         homeViewModel.getTrendingTvSeries()
         homeViewModel.trendingTvSeriesList.observe(this) { tvSeriesData ->
             if (tvSeriesData != null) {
-                Log.d("Ninja HomeActivity", "movieList: $tvSeriesData")
-                listFragment.bindTVData("Popular TV Series", tvSeriesData)
+                listFragment.bindTVData("Trending TV Series", tvSeriesData)
                 listFragment.setOnContentSelectedListener {
                     updateBanner(it)
                 }
                 listFragment.setOnItemClickListener {
                     val intent = Intent(this, DetailActivity::class.java)
                     intent.putExtra("id", it.id)
-                    intent.putExtra("mediaType",it.mediaType)
+                    intent.putExtra("mediaType", it.mediaType)
                     startActivity(intent)
                 }
             }

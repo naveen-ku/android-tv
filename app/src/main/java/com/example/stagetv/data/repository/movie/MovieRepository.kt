@@ -39,13 +39,9 @@ class MovieRepository @Inject constructor(
 
     suspend fun getTrendingMovies(): MoviesList? {
         return if (NetworkUtils.isInternetAvailable(appContext)) {
-            Log.d("Ninja MovieRepository", "online:: getTrendingMovies() check DB")
-            var result = getMovieListFromDb()
-            if (result == null) {
-                Log.d("Ninja MovieRepository", "getTrendingMovies() from network")
-                result = movieService.getTrendingMovies()
-                insertMovieListToDb(result)
-            }
+            Log.d("Ninja MovieRepository", "getTrendingMovies() from network")
+            val result = movieService.getTrendingMovies()
+            insertMovieListToDb(result)
             result
         } else {
             Log.d("Ninja MovieRepository", "offline:: getTrendingMovies() from db")

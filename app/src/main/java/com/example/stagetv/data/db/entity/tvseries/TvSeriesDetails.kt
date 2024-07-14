@@ -11,9 +11,7 @@ data class TvSeriesDetails(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
     val adult: Boolean,
-    val genres: List<Genre>,
     val homepage: String,
-    val languages: List<String>,
     val name: String,
     @SerializedName("number_of_episodes") val numberOfEpisodes: Int,
     @SerializedName("number_of_seasons") val numberOfSeasons: Int,
@@ -22,7 +20,6 @@ data class TvSeriesDetails(
     val overview: String,
     @SerializedName("poster_path") val posterPath: String,
     @SerializedName("backdrop_path") val backdropPath: String,
-    @SerializedName("spoken_languages") val spokenLanguages: List<SpokenLanguage>,
     val status: String,
     val tagline: String?,
     val type: String
