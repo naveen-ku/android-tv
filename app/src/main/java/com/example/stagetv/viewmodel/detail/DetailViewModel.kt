@@ -1,4 +1,4 @@
-package com.example.stagetv.viewmodel
+package com.example.stagetv.viewmodel.detail
 
 import android.content.Context
 import android.util.Log

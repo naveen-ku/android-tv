@@ -19,12 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StageTv">
         <activity
-            android:name=".ui.DetailActivity"
+            android:name=".ui.detail.DetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.player.PlaybackActivity"
             android:exported="false" />
-        <activity android:name=".ui.HomeActivity" />
+        <activity android:name=".ui.home.HomeActivity" />
         <activity
             android:name=".ui.MainActivity"
             android:banner="@drawable/baseline_account_circle_24"

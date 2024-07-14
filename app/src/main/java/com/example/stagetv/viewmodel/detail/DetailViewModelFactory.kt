@@ -1,6 +1,5 @@
-package com.example.stagetv.viewmodel
+package com.example.stagetv.viewmodel.detail
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dagger.assisted.AssistedFactory

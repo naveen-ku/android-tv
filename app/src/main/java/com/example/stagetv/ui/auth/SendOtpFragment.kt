@@ -15,7 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.stagetv.data.network.NetworkResult
 import com.example.stagetv.databinding.FragmentSendOtpBinding
-import com.example.stagetv.ui.HomeActivity
+import com.example.stagetv.ui.home.HomeActivity
 import com.example.stagetv.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

@@ -11,8 +11,8 @@ import com.example.stagetv.data.db.entity.SpokenLanguage
 import com.example.stagetv.data.db.entity.User
 import com.example.stagetv.data.db.entity.movie.MovieDetails
 import com.example.stagetv.data.db.entity.movie.MoviesList
-import com.example.stagetv.utils.ItemThumbnailConverter
-import com.example.stagetv.utils.MovieDetailsConverter
+import com.example.stagetv.utils.converters.ItemThumbnailConverter
+import com.example.stagetv.utils.converters.MovieDetailsConverter
 
 @Database(
     entities = [User::class, MovieDetails::class, MoviesList::class, Genre::class, SpokenLanguage::class],

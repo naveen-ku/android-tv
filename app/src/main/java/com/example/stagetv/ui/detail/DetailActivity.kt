@@ -1,4 +1,4 @@
-package com.example.stagetv.ui
+package com.example.stagetv.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,9 +9,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.stagetv.databinding.ActivityDetailBinding
 import com.example.stagetv.ui.player.PlaybackActivity
-import com.example.stagetv.viewmodel.DetailViewModel
-import com.example.stagetv.viewmodel.DetailViewModelAssistedFactory
-import com.example.stagetv.viewmodel.DetailViewModelFactoryImpl
+import com.example.stagetv.viewmodel.detail.DetailViewModel
+import com.example.stagetv.viewmodel.detail.DetailViewModelAssistedFactory
+import com.example.stagetv.viewmodel.detail.DetailViewModelFactoryImpl
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.example.stagetv.utils
+package com.example.stagetv.utils.converters
 
 import androidx.room.TypeConverter
 import com.example.stagetv.data.db.entity.Genre

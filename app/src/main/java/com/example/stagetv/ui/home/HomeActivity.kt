@@ -1,4 +1,4 @@
-package com.example.stagetv.ui
+package com.example.stagetv.ui.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.stagetv.R
 import com.example.stagetv.data.db.entity.ItemThumbnail
 import com.example.stagetv.databinding.ActivityHomeBinding
+import com.example.stagetv.ui.detail.DetailActivity
 import com.example.stagetv.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

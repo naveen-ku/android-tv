@@ -1,4 +1,4 @@
-package com.example.stagetv.ui
+package com.example.stagetv.ui.home
 
 import android.os.Bundle
 import android.view.View
