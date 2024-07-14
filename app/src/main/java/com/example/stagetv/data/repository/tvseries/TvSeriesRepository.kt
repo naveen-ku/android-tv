@@ -1,5 +1,6 @@
 package com.example.stagetv.data.repository.tvseries
 
+import android.content.Context
 import android.util.Log
 import com.example.stagetv.data.db.AppDatabase
 import com.example.stagetv.data.db.entity.tvseries.TvSeriesDetails
@@ -9,7 +10,8 @@ import javax.inject.Inject
 
 class TvSeriesRepository @Inject constructor(
     private val tvSeriesService: TvSeriesService,
-    private val appDatabase: AppDatabase
+    private val appDatabase: AppDatabase,
+    private val appContext: Context
 ) {
 
     suspend fun getTvSeriesDetails(id: Int): TvSeriesDetails {

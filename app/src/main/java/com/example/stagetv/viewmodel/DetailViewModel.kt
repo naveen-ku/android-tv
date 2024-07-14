@@ -16,17 +16,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-
 class DetailViewModel @AssistedInject constructor(
     private val movieRepository: MovieRepository,
     private val tvSeriesRepository: TvSeriesRepository,
     @Assisted private val id: Int,
     @Assisted private val mediaType: String,
-    @Assisted private val context: Context
 ) : ViewModel() {
 
-    private val _movieDetails = MutableLiveData<MovieDetails>(null)
-    val movieDetails: LiveData<MovieDetails>
+    private val _movieDetails = MutableLiveData<MovieDetails?>(null)
+    val movieDetails: LiveData<MovieDetails?>
         get() = _movieDetails
 
     private val _tvSeriesDetails = MutableLiveData<TvSeriesDetails>(null)
@@ -39,7 +37,7 @@ class DetailViewModel @AssistedInject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (mediaType == "movie") {
-                    val deferredResult = async { movieRepository.getMovieDetails(id,context) }
+                    val deferredResult = async { movieRepository.getMovieDetails(id) }
                     val result = deferredResult.await()
                     _movieDetails.postValue(result)
                 } else {

@@ -16,18 +16,23 @@ import javax.inject.Inject
 class MovieRepository @Inject constructor(
     private val movieService: MovieService,
     private val appDatabase: AppDatabase,
+    private val appContext: Context
 ) {
 
-    suspend fun getMovieDetails(id: Int, context: Context): MovieDetails {
-        if (NetworkUtils.isInternetAvailable(context)) {
-            Log.d("Ninja MovieRepository", "getMovieDetails() from network")
-            val result = movieService.getMovieDetail(id)
-            insertMovieDetailsToDb(result)
-            return result
+    suspend fun getMovieDetails(id: Int): MovieDetails? {
+        return if (NetworkUtils.isInternetAvailable(appContext)) {
+            Log.d("Ninja MovieRepository", "online:: getMovieDetails() check DB")
+            var result = getMovieDetailsFromDb(id)
+            if (result == null) {
+                Log.d("Ninja MovieRepository", "getMovieDetails() from network")
+                 result = movieService.getMovieDetail(id)
+                insertMovieDetailsToDb(result)
+            }
+            result
         } else {
-            Log.d("Ninja MovieRepository", "getMovieDetails() from db")
-            val result = appDatabase.movieDetailDao().getMovieDetailById(id)
-            return result!!
+            Log.d("Ninja MovieRepository", "offline:: getMovieDetails() from db")
+            val result = getMovieDetailsFromDb(id)
+            result
         }
     }
 
@@ -45,5 +50,13 @@ class MovieRepository @Inject constructor(
 
     private suspend fun insertMovieDetailsToDb(movieDetails: MovieDetails) {
         appDatabase.movieDetailDao().insertMovieDetails(movieDetails)
+    }
+
+    private suspend fun getMovieDetailsFromDb(id: Int): MovieDetails? {
+        return appDatabase.movieDetailDao().getMovieDetailById(id)
+    }
+
+    private suspend fun insertMovieListToDb(moviesList: MoviesList) {
+        appDatabase.movieListDao().insertMovieList(moviesList)
     }
 }

@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val movieRepository: MovieRepository,
-    private val tvSeriesRepository: TvSeriesRepository
+    private val tvSeriesRepository: TvSeriesRepository,
 ) :
     ViewModel() {
 

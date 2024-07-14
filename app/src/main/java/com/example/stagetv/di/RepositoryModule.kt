@@ -1,5 +1,6 @@
 package com.example.stagetv.di
 
+import android.content.Context
 import com.example.stagetv.data.db.AppDatabase
 import com.example.stagetv.data.network.MovieService
 import com.example.stagetv.data.network.TvSeriesService
@@ -26,14 +27,16 @@ object RepositoryModule {
     @ActivityScoped
     fun provideMovieRepository(
         movieService: MovieService,
-        appDatabase: AppDatabase
+        appDatabase: AppDatabase,
+        appContext: Context
     ) =
-        MovieRepository(movieService, appDatabase)
+        MovieRepository(movieService, appDatabase, appContext)
 
     @Provides
     @ActivityScoped
     fun provideTvSeriesRepository(
         tvSeriesService: TvSeriesService,
-        appDatabase: AppDatabase
-    ) = TvSeriesRepository(tvSeriesService, appDatabase)
+        appDatabase: AppDatabase,
+        appContext: Context
+    ) = TvSeriesRepository(tvSeriesService, appDatabase, appContext)
 }
