@@ -16,34 +16,45 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeActivity : FragmentActivity() {
     private lateinit var binding: ActivityHomeBinding
     private val homeViewModel: HomeViewModel by viewModels<HomeViewModel>()
-//    private lateinit var popularMoviesObserver: Observer<PagingData<ItemThumbnail>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         val listFragment = ListFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.list_fragment, listFragment).commit()
 
-        homeViewModel.getTrendingMovies()
-        homeViewModel.trendingMovieList.observe(this) { movieData ->
-            if (movieData != null) {
-                listFragment.bindMovieData("Trending Movies", movieData)
-                listFragment.setOnContentSelectedListener {
-                    updateBanner(it)
-                }
-                listFragment.setOnItemClickListener {
-                    val intent = Intent(this, DetailActivity::class.java)
-                    intent.putExtra("id", it.id)
-                    intent.putExtra("mediaType", it.mediaType)
-                    startActivity(intent)
-                }
-            }
-        }
+        handleTrendingMoviesData(listFragment)
+        handleTrendingTvSeriesData(listFragment)
 
+//        handlePopularMoviesPaginatedData(listFragment)
+//        handlePopularMoviesPaginatedDataUsingRecyclerView()
+
+
+    }
+
+//    private fun handlePopularMoviesPaginatedDataUsingRecyclerView() {
+//        val recyclerView = binding.rvList
+//        val adapter = MoviePagingAdapter()
+//        recyclerView.layoutManager =
+//            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//        recyclerView.setHasFixedSize(true)
+//        recyclerView.adapter = adapter
+//
+//        homeViewModel.getPopularMoviesList().observe(this, Observer {
+//            adapter.submitData(lifecycle, it)
+//        })
+//    }
+
+//    private fun handlePopularMoviesPaginatedData(listFragment: ListFragment) {
+//        homeViewModel.getPopularMoviesList().observe(this, Observer {
+//            listFragment.bindPagingData("Popular Movies Paginated Data", it)
+//        })
+//    }
+
+    private fun handleTrendingTvSeriesData(listFragment: ListFragment) {
         homeViewModel.getTrendingTvSeries()
         homeViewModel.trendingTvSeriesList.observe(this) { tvSeriesData ->
             if (tvSeriesData != null) {
@@ -59,19 +70,27 @@ class HomeActivity : FragmentActivity() {
                 }
             }
         }
+    }
 
-//        popularMoviesObserver = Observer{pagingData ->
-//            listFragment.bindPagingData("Trending Movies", pagingData)
-//        }
-//
-//        homeViewModel.getPopularMoviesList()
-//        homeViewModel.popularMoviesList.observe(this, popularMoviesObserver)
-
+    private fun handleTrendingMoviesData(listFragment: ListFragment) {
+        homeViewModel.getTrendingMovies()
+        homeViewModel.trendingMovieList.observe(this) { movieData ->
+            if (movieData != null) {
+                listFragment.bindMovieData("Trending Movies", movieData)
+                listFragment.setOnContentSelectedListener {
+                    updateBanner(it)
+                }
+                listFragment.setOnItemClickListener {
+                    val intent = Intent(this, DetailActivity::class.java)
+                    intent.putExtra("id", it.id)
+                    intent.putExtra("mediaType", it.mediaType)
+                    startActivity(intent)
+                }
+            }
+        }
     }
 
     private fun updateBanner(itemThumbnail: ItemThumbnail) {
-
-
         binding.tvTitle.text = itemThumbnail.title ?: itemThumbnail.name
         binding.tvTagline.text = itemThumbnail.mediaType.uppercase()
         binding.tvOverview.text = itemThumbnail.overview
@@ -82,6 +101,5 @@ class HomeActivity : FragmentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-//        homeViewModel.popularMoviesList.removeObserver(popularMoviesObserver)
     }
 }

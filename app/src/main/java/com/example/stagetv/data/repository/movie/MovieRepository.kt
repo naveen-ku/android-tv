@@ -2,10 +2,13 @@ package com.example.stagetv.data.repository.movie
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.example.stagetv.data.db.AppDatabase
+import com.example.stagetv.data.db.entity.ItemThumbnail
 import com.example.stagetv.data.db.entity.movie.MovieDetails
 import com.example.stagetv.data.db.entity.movie.MoviesList
 import com.example.stagetv.data.network.MovieService
@@ -19,6 +22,10 @@ class MovieRepository @Inject constructor(
     private val appContext: Context
 ) {
 
+    /**
+     * @param id Unique Id of movie
+     * @return Details of Movie or null
+     * */
     suspend fun getMovieDetails(id: Int): MovieDetails? {
         return if (NetworkUtils.isInternetAvailable(appContext)) {
             Log.d("Ninja MovieRepository", "online:: getMovieDetails() check DB")
@@ -37,6 +44,9 @@ class MovieRepository @Inject constructor(
     }
 
 
+    /**
+     * @return Top 20 Trending movies on TMDB
+     * */
     suspend fun getTrendingMovies(): MoviesList? {
         return if (NetworkUtils.isInternetAvailable(appContext)) {
             Log.d("Ninja MovieRepository", "getTrendingMovies() from network")
@@ -50,8 +60,12 @@ class MovieRepository @Inject constructor(
         }
     }
 
+    /**
+     * It's paginated API
+     * @return  LiveData<PagingData<ItemThumbnail>>
+     * */
 
-    fun getPopularMoviesList() = Pager(
+    fun getPopularMoviesList(): LiveData<PagingData<ItemThumbnail>> = Pager(
         config = PagingConfig(pageSize = 20, maxSize = 80),
         pagingSourceFactory = { MoviePagingSource(movieService) }).liveData
 

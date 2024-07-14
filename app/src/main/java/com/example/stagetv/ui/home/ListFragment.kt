@@ -1,5 +1,6 @@
 package com.example.stagetv.ui.home
 
+import android.content.ClipData.Item
 import android.os.Bundle
 import android.view.View
 import androidx.leanback.app.RowsSupportFragment
@@ -13,9 +14,12 @@ import androidx.leanback.widget.OnItemViewSelectedListener
 import androidx.leanback.widget.Presenter
 import androidx.leanback.widget.Row
 import androidx.leanback.widget.RowPresenter
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import com.example.stagetv.data.db.entity.ItemThumbnail
 import com.example.stagetv.data.db.entity.movie.MoviesList
 import com.example.stagetv.data.db.entity.tvseries.TvSeriesList
+import kotlinx.coroutines.launch
 
 class ListFragment : RowsSupportFragment() {
 
@@ -53,12 +57,11 @@ class ListFragment : RowsSupportFragment() {
     }
 
 //    fun bindPagingData(header: String, pagingData: PagingData<ItemThumbnail>){
-//        lifecycleScope.launch {
-//            pagingData.collectLatest { data ->
-//                val arrayObjectAdapter = ArrayObjectAdapter(ItemPresenter())
-//                data.forEach{ item }
-//            }
-//        }
+//        val arrayObjectAdapter = ArrayObjectAdapter(ItemPresenter())
+//        arrayObjectAdapter.add(pagingData)
+//        val headerItem = HeaderItem(header)
+//        val listRow = ListRow(headerItem, arrayObjectAdapter)
+//        rootAdapter.add(listRow)
 //    }
 
     fun setOnContentSelectedListener(listener: (ItemThumbnail) -> Unit) {

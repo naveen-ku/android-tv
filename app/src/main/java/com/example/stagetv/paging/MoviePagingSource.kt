@@ -10,6 +10,7 @@ import com.example.stagetv.data.network.MovieService
 class MoviePagingSource(private val movieService: MovieService) :
     PagingSource<Int, ItemThumbnail>() {
     override fun getRefreshKey(state: PagingState<Int, ItemThumbnail>): Int? {
+        Log.d("Ninja MoviePagingSource", "getRefreshKey()")
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
@@ -20,7 +21,7 @@ class MoviePagingSource(private val movieService: MovieService) :
         return try {
             val position = params.key ?: 1
             val response = movieService.getPopularMoviesList("en-us", position)
-            Log.d("Ninja load","response : $response")
+            Log.d("Ninja MoviePagingSource", "load() response : ${response.movieThumbnails.size}")
             return LoadResult.Page(
                 data = response.movieThumbnails,
                 prevKey = if (position == 1) null else position - 1,

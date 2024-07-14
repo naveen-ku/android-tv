@@ -32,10 +32,6 @@ class HomeViewModel @Inject constructor(
     val trendingTvSeriesList: LiveData<TvSeriesList?>
         get() = _trendingTvSeriesList
 
-    private val _popularMoviesList = MutableLiveData<PagingData<ItemThumbnail>>(null)
-    val popularMoviesList: LiveData<PagingData<ItemThumbnail>>
-        get() = _popularMoviesList
-
     fun getTrendingMovies() {
         viewModelScope.launch {
             try {
@@ -66,10 +62,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getPopularMoviesList() {
-        movieRepository.getPopularMoviesList().observeForever { pagingData ->
-            _popularMoviesList.postValue(pagingData)
-        }
-    }
+/*    fun getPopularMoviesList(): LiveData<PagingData<ItemThumbnail>> {
+        return movieRepository.getPopularMoviesList()
+    }*/
 
 }
