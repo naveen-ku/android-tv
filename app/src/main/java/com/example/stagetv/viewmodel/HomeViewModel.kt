@@ -24,12 +24,12 @@ class HomeViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-    private val _trendingMovieList = MutableLiveData<MoviesList>(null)
-    val trendingMovieList: LiveData<MoviesList>
+    private val _trendingMovieList = MutableLiveData<MoviesList?>(null)
+    val trendingMovieList: LiveData<MoviesList?>
         get() = _trendingMovieList
 
-    private val _trendingTvSeriesList = MutableLiveData<TvSeriesList>(null)
-    val trendingTvSeriesList: LiveData<TvSeriesList>
+    private val _trendingTvSeriesList = MutableLiveData<TvSeriesList?>(null)
+    val trendingTvSeriesList: LiveData<TvSeriesList?>
         get() = _trendingTvSeriesList
 
     private val _popularMoviesList = MutableLiveData<PagingData<ItemThumbnail>>(null)

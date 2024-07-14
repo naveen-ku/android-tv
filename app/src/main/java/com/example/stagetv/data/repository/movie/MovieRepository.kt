@@ -25,7 +25,7 @@ class MovieRepository @Inject constructor(
             var result = getMovieDetailsFromDb(id)
             if (result == null) {
                 Log.d("Ninja MovieRepository", "getMovieDetails() from network")
-                 result = movieService.getMovieDetail(id)
+                result = movieService.getMovieDetail(id)
                 insertMovieDetailsToDb(result)
             }
             result
@@ -37,10 +37,21 @@ class MovieRepository @Inject constructor(
     }
 
 
-    suspend fun getTrendingMovies(): MoviesList {
-        val result = movieService.getTrendingMovies()
-        Log.d("Ninja MovieRepository", "result: $result")
-        return result
+    suspend fun getTrendingMovies(): MoviesList? {
+        return if (NetworkUtils.isInternetAvailable(appContext)) {
+            Log.d("Ninja MovieRepository", "online:: getTrendingMovies() check DB")
+            var result = getMovieListFromDb()
+            if (result == null) {
+                Log.d("Ninja MovieRepository", "getTrendingMovies() from network")
+                result = movieService.getTrendingMovies()
+                insertMovieListToDb(result)
+            }
+            result
+        } else {
+            Log.d("Ninja MovieRepository", "offline:: getTrendingMovies() from db")
+            val result = getMovieListFromDb()
+            result
+        }
     }
 
 
@@ -54,6 +65,10 @@ class MovieRepository @Inject constructor(
 
     private suspend fun getMovieDetailsFromDb(id: Int): MovieDetails? {
         return appDatabase.movieDetailDao().getMovieDetailById(id)
+    }
+
+    private suspend fun getMovieListFromDb(): MoviesList? {
+        return appDatabase.movieListDao().getMovieList()
     }
 
     private suspend fun insertMovieListToDb(moviesList: MoviesList) {

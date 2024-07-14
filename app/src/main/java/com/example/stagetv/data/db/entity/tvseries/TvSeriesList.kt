@@ -7,8 +7,7 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "tv_series")
 data class TvSeriesList(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val page: Int,
     @SerializedName("results") val tvSeriesThumbnails: List<ItemThumbnail>,
     @SerializedName("total_pages") val totalPages: Int,

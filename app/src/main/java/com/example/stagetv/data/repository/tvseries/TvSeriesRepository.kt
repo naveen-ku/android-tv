@@ -16,13 +16,13 @@ class TvSeriesRepository @Inject constructor(
 
     suspend fun getTvSeriesDetails(id: Int): TvSeriesDetails {
         val result = tvSeriesService.getTvSeriesDetail(id)
-        Log.d("Ninja MovieRepository", "getTvSeriesDetails $result")
+        Log.d("Ninja TvSeriesRepository", "getTvSeriesDetails()")
         return result
     }
 
     suspend fun getTrendingTvSeries(): TvSeriesList {
         val result = tvSeriesService.getTrendingTvSeries()
-        Log.d("Ninja MovieRepository", "result: $result")
+        Log.d("Ninja TvSeriesRepository", "getTrendingTvSeries() result")
         return result;
     }
 
