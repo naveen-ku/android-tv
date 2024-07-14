@@ -10,24 +10,27 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.stagetv.databinding.ActivityDetailBinding
 import com.example.stagetv.ui.player.PlaybackActivity
 import com.example.stagetv.viewmodel.DetailViewModel
+import com.example.stagetv.viewmodel.DetailViewModelAssistedFactory
+import com.example.stagetv.viewmodel.DetailViewModelFactoryImpl
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class DetailActivity : FragmentActivity() {
-    lateinit var binding: ActivityDetailBinding
-//    private val detailViewModel: DetailViewModel by viewModels<DetailViewModel>()
+    private lateinit var binding: ActivityDetailBinding
 
     @Inject
-    lateinit var detailViewModelFactory: DetailViewModel.DetailViewModelFactory
+    lateinit var detailViewModelAssistedFactory: DetailViewModelAssistedFactory
+
     private val detailViewModel: DetailViewModel by viewModels {
-        DetailViewModel.providesFactory(
-            assistedFactory = detailViewModelFactory,
-            id = intent.getIntExtra("id", 0),
-            mediaType = intent.getStringExtra("mediaType")!!
+        DetailViewModelFactoryImpl(
+            detailViewModelAssistedFactory,
+            intent.getIntExtra("id", 0),
+            intent.getStringExtra("mediaType")!!
         )
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
