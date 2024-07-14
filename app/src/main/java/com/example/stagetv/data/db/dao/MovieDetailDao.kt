@@ -21,7 +21,7 @@ interface MovieDetailDao {
     suspend fun insertSpokenLanguages(spokenLanguage: List<SpokenLanguage>)
 
     @Query("SELECT * FROM movie_details WHERE id = :mId")
-    suspend fun getMovieDetailById(mId: String): MovieDetails?
+    suspend fun getMovieDetailById(mId: Int): MovieDetails?
 
     @Query("DELETE FROM movie_details")
     suspend fun deleteAllMovieDetails()
