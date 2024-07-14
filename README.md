@@ -25,6 +25,9 @@ https://github.com/user-attachments/assets/b7e159f4-c936-41b4-8593-9c7ec21efc8e
 - [x] Fetch TV/Movie using API
 - [x] Play Video
 - [x] Follow MVVM architecture
+- [x] Store Data in DB
+- [x] Offline Support
+- [x] Cache using Glide
 
 
 ### API Endpoints
