@@ -1,5 +1,6 @@
 package com.example.stagetv.data.repository.movie
 
+import android.content.Context
 import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -7,22 +8,27 @@ import androidx.paging.liveData
 import com.example.stagetv.data.db.AppDatabase
 import com.example.stagetv.data.db.entity.movie.MovieDetails
 import com.example.stagetv.data.db.entity.movie.MoviesList
-import com.example.stagetv.data.db.entity.tvseries.TvSeriesDetails
-import com.example.stagetv.data.db.entity.tvseries.TvSeriesList
 import com.example.stagetv.data.network.MovieService
-import com.example.stagetv.data.network.TvSeriesService
 import com.example.stagetv.paging.MoviePagingSource
+import com.example.stagetv.utils.NetworkUtils
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(
     private val movieService: MovieService,
-    private val appDatabase: AppDatabase
+    private val appDatabase: AppDatabase,
 ) {
 
-    suspend fun getMovieDetails(id:Int): MovieDetails {
-        val result = movieService.getMovieDetail(id)
-        Log.d("Ninja MovieRepository","getMovieDetails $result")
-        return result
+    suspend fun getMovieDetails(id: Int, context: Context): MovieDetails {
+        if (NetworkUtils.isInternetAvailable(context)) {
+            Log.d("Ninja MovieRepository", "getMovieDetails() from network")
+            val result = movieService.getMovieDetail(id)
+            insertMovieDetailsToDb(result)
+            return result
+        } else {
+            Log.d("Ninja MovieRepository", "getMovieDetails() from db")
+            val result = appDatabase.movieDetailDao().getMovieDetailById(id)
+            return result!!
+        }
     }
 
 
@@ -37,7 +43,7 @@ class MovieRepository @Inject constructor(
         config = PagingConfig(pageSize = 20, maxSize = 80),
         pagingSourceFactory = { MoviePagingSource(movieService) }).liveData
 
-    suspend fun insertMovieDetailsToDb(movieDetails: MovieDetails){
+    private suspend fun insertMovieDetailsToDb(movieDetails: MovieDetails) {
         appDatabase.movieDetailDao().insertMovieDetails(movieDetails)
     }
 }

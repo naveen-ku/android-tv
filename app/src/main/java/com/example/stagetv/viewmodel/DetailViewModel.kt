@@ -1,5 +1,6 @@
 package com.example.stagetv.viewmodel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,7 +21,8 @@ class DetailViewModel @AssistedInject constructor(
     private val movieRepository: MovieRepository,
     private val tvSeriesRepository: TvSeriesRepository,
     @Assisted private val id: Int,
-    @Assisted private val mediaType: String
+    @Assisted private val mediaType: String,
+    @Assisted private val context: Context
 ) : ViewModel() {
 
     private val _movieDetails = MutableLiveData<MovieDetails>(null)
@@ -37,9 +39,8 @@ class DetailViewModel @AssistedInject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (mediaType == "movie") {
-                    val deferredResult = async { movieRepository.getMovieDetails(id) }
+                    val deferredResult = async { movieRepository.getMovieDetails(id,context) }
                     val result = deferredResult.await()
-                    movieRepository.insertMovieDetailsToDb(result)
                     _movieDetails.postValue(result)
                 } else {
                     val result = tvSeriesRepository.getTvSeriesDetails(id)

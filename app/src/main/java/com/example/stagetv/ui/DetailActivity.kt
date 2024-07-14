@@ -27,7 +27,8 @@ class DetailActivity : FragmentActivity() {
         DetailViewModelFactoryImpl(
             detailViewModelAssistedFactory,
             intent.getIntExtra("id", 0),
-            intent.getStringExtra("mediaType")!!
+            intent.getStringExtra("mediaType")!!,
+            this
         )
     }
 
