@@ -67,14 +67,12 @@ class SendOtpFragment : Fragment() {
 
                         is NetworkResult.Loading -> {
                             Log.d("Ninja SendOtpFragment", "Loading")
-                            // Can show loader
-                            binding.buttonLogin.isEnabled = false
-                            binding.pbLoginLoading.visibility = View.VISIBLE
-                            binding.buttonLogin.text = ""
+                            showLoader()
                         }
 
                         is NetworkResult.Success -> {
                             Log.d("Ninja SendOtpFragment", "Verification Success")
+                            hideLoader()
                             val verificationId = authViewModel.verificationId.value
                             if (verificationId != null) {
                                 Log.d(
@@ -98,9 +96,7 @@ class SendOtpFragment : Fragment() {
                                 "Ninja SendOtpFragment",
                                 "Verification initiation failed: ${resource.message}"
                             )
-                            binding.buttonLogin.isEnabled = true
-                            binding.pbLoginLoading.visibility = View.GONE
-                            binding.buttonLogin.text = R.string.get_otp.toString()
+                            hideLoader()
                             // Show an error message
                             Toast.makeText(context, "Please try again, later!", Toast.LENGTH_SHORT)
                                 .show()
@@ -112,6 +108,18 @@ class SendOtpFragment : Fragment() {
 
             }
         }
+    }
+
+    private fun showLoader() {
+        binding.buttonLogin.isEnabled = false
+        binding.pbLoginLoading.visibility = View.VISIBLE
+        binding.buttonLogin.text = ""
+    }
+
+    private fun hideLoader() {
+        binding.buttonLogin.isEnabled = true
+        binding.pbLoginLoading.visibility = View.GONE
+        binding.buttonLogin.text = getString(R.string.get_otp)
     }
 
 }

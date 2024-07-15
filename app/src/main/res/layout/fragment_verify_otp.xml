@@ -17,15 +17,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_verify_otp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@drawable/button_rounded"
-        android:text="@string/verify"
-        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_otp_code" />
+        app:layout_constraintTop_toBottomOf="@id/et_otp_code">
+
+        <Button
+            android:id="@+id/button_verify_otp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/button_rounded"
+            android:text="@string/verify"
+            android:textSize="24sp" />
+
+        <ProgressBar
+            android:id="@+id/pb_verify_loading"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorWhite"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

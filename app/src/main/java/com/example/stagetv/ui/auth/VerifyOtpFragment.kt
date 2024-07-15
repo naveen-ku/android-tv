@@ -13,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import com.example.stagetv.R
 import com.example.stagetv.data.network.NetworkResult
 import com.example.stagetv.databinding.FragmentVerifyOtpBinding
 import com.example.stagetv.ui.home.HomeActivity
@@ -50,12 +51,14 @@ class VerifyOtpFragment : Fragment() {
                     when (resource) {
                         is NetworkResult.Loading -> {
                             // Can show loader
+                            showLoader()
                         }
 
                         is NetworkResult.Success -> {
                             Log.d(
                                 "VerificationOtpFragment", "Verification success: ${resource.data}"
                             )
+                            hideLoader()
                             startActivity(Intent(context, HomeActivity::class.java))
                             requireActivity().finish()
                         }
@@ -65,6 +68,7 @@ class VerifyOtpFragment : Fragment() {
                                 "VerificationOtpFragment",
                                 "Verification failed: ${resource.message}"
                             )
+                            hideLoader()
                             // Show an error message
                             Toast.makeText(context, "आपका ओटीपी गलत है", Toast.LENGTH_SHORT)
                                 .show()
@@ -76,4 +80,17 @@ class VerifyOtpFragment : Fragment() {
             }
         }
     }
+
+    private fun showLoader() {
+        binding.buttonVerifyOtp.isEnabled = false
+        binding.pbVerifyLoading.visibility = View.VISIBLE
+        binding.buttonVerifyOtp.text = ""
+    }
+
+    private fun hideLoader() {
+        binding.buttonVerifyOtp.isEnabled = true
+        binding.pbVerifyLoading.visibility = View.GONE
+        binding.buttonVerifyOtp.text = getString(R.string.verify)
+    }
+
 }
