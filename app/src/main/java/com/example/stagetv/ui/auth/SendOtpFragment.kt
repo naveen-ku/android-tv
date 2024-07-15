@@ -13,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.example.stagetv.R
 import com.example.stagetv.data.network.NetworkResult
 import com.example.stagetv.databinding.FragmentSendOtpBinding
 import com.example.stagetv.ui.home.HomeActivity
@@ -67,6 +68,9 @@ class SendOtpFragment : Fragment() {
                         is NetworkResult.Loading -> {
                             Log.d("Ninja SendOtpFragment", "Loading")
                             // Can show loader
+                            binding.buttonLogin.isEnabled = false
+                            binding.pbLoginLoading.visibility = View.VISIBLE
+                            binding.buttonLogin.text = ""
                         }
 
                         is NetworkResult.Success -> {
@@ -94,6 +98,9 @@ class SendOtpFragment : Fragment() {
                                 "Ninja SendOtpFragment",
                                 "Verification initiation failed: ${resource.message}"
                             )
+                            binding.buttonLogin.isEnabled = true
+                            binding.pbLoginLoading.visibility = View.GONE
+                            binding.buttonLogin.text = R.string.get_otp.toString()
                             // Show an error message
                             Toast.makeText(context, "Please try again, later!", Toast.LENGTH_SHORT)
                                 .show()
