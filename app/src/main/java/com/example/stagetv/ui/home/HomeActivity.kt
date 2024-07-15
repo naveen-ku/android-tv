@@ -2,11 +2,13 @@ package com.example.stagetv.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 import com.example.stagetv.R
 import com.example.stagetv.data.db.entity.ItemThumbnail
+import com.example.stagetv.data.network.NetworkResult
 import com.example.stagetv.databinding.ActivityHomeBinding
 import com.example.stagetv.ui.detail.DetailActivity
 import com.example.stagetv.viewmodel.HomeViewModel
@@ -56,38 +58,66 @@ class HomeActivity : FragmentActivity() {
 
     private fun handleTrendingTvSeriesData(listFragment: ListFragment) {
         homeViewModel.getTrendingTvSeries()
-        homeViewModel.trendingTvSeriesList.observe(this) { tvSeriesData ->
-            if (tvSeriesData != null) {
-                listFragment.bindTVData("Trending TV Series", tvSeriesData)
-                listFragment.setOnContentSelectedListener {
-                    updateBanner(it)
+        homeViewModel.isTvSeriesFetchingProgress.observe(this) { tvSeriesList ->
+            when (tvSeriesList) {
+                is NetworkResult.Loading -> {
+                    // Show Progress bar
                 }
-                listFragment.setOnItemClickListener {
-                    val intent = Intent(this, DetailActivity::class.java)
-                    intent.putExtra("id", it.id)
-                    intent.putExtra("mediaType", it.mediaType)
-                    startActivity(intent)
+
+                is NetworkResult.Success -> {
+                    listFragment.bindTVData("Trending TV Series", tvSeriesList.data!!)
+                    listFragment.setOnContentSelectedListener {
+                        updateBanner(it)
+                    }
+                    listFragment.setOnItemClickListener {
+                        val intent = Intent(this, DetailActivity::class.java)
+                        intent.putExtra("id", it.id)
+                        intent.putExtra("mediaType", it.mediaType)
+                        startActivity(intent)
+                    }
                 }
+
+                is NetworkResult.Failure -> {
+                    // Show Some error
+                    Toast.makeText(this, "Some error in fetching tvSeries", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                else -> Unit
             }
+
         }
     }
 
     private fun handleTrendingMoviesData(listFragment: ListFragment) {
         homeViewModel.getTrendingMovies()
-        homeViewModel.trendingMovieList.observe(this) { movieData ->
-            if (movieData != null) {
-                listFragment.bindMovieData("Trending Movies", movieData)
-                listFragment.setOnContentSelectedListener {
-                    updateBanner(it)
+        homeViewModel.isMovieFetchingProgress.observe(this) { moviesList ->
+            when (moviesList) {
+                is NetworkResult.Loading -> {
+                    // Show some progress
                 }
-                listFragment.setOnItemClickListener {
-                    val intent = Intent(this, DetailActivity::class.java)
-                    intent.putExtra("id", it.id)
-                    intent.putExtra("mediaType", it.mediaType)
-                    startActivity(intent)
+
+                is NetworkResult.Success -> {
+                    listFragment.bindMovieData("Trending Movies", moviesList.data!!)
+                    listFragment.setOnContentSelectedListener {
+                        updateBanner(it)
+                    }
+                    listFragment.setOnItemClickListener {
+                        val intent = Intent(this, DetailActivity::class.java)
+                        intent.putExtra("id", it.id)
+                        intent.putExtra("mediaType", it.mediaType)
+                        startActivity(intent)
+                    }
                 }
+
+                is NetworkResult.Failure -> {
+                    Toast.makeText(this, "Some error in fetching movies", Toast.LENGTH_SHORT).show()
+                }
+
+                else -> Unit
             }
         }
+
     }
 
     private fun updateBanner(itemThumbnail: ItemThumbnail) {

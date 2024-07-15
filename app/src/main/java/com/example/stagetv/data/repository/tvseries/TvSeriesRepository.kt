@@ -35,9 +35,15 @@ class TvSeriesRepository @Inject constructor(
     suspend fun getTrendingTvSeries(): TvSeriesList? {
         return if (NetworkUtils.isInternetAvailable(appContext)) {
             Log.d("Ninja TvSeriesRepository", "getTrendingTvSeries() from network")
-            val result = tvSeriesService.getTrendingTvSeries()
-            insertTvSeriesListToDb(result)
-            result
+            try {
+                val result = tvSeriesService.getTrendingTvSeries()
+                insertTvSeriesListToDb(result)
+                result
+            } catch (e: Exception) {
+                Log.e("Ninja TvSeriesRepository", "getTrendingTvSeries() error: ${e.message}")
+                null
+            }
+
         } else {
             Log.d("Ninja TvSeriesRepository", "offline:: getTrendingTvSeries() from db")
             val result = getTvSeriesListFromDb()
